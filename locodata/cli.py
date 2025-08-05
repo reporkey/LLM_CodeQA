@@ -28,12 +28,19 @@ def design(requirement: str = typer.Argument(..., help="Requirement in natural l
 
 @app.command()
 def answer_codeqa_dataset(
+    path: Path = typer.Option(Path("CodeQA_data/python/train"), help="Path to CodeQA dataset"),
     limit: int = typer.Option(None, help="Limit number of examples to process")
 ):
     """Generate answers for CodeQA dataset (existing code + question pairs)."""
-    processor = CodeQADatasetProcessor(REPO_PATH)
+    # Look for CodeQA_data directory
+    if not path.exists():
+        print(f"CodeQA data not found at {path}")
+        print("Please ensure CodeQA_data directory exists with the correct structure")
+        return
+    
+    processor = CodeQADatasetProcessor(path)
     results = processor.process_qa(limit)
-    print(f"Processed {len(results)} examples from {REPO_PATH}")
+    print(f"Processed {len(results)} examples from {path}")
 
 
 @app.command()
@@ -58,7 +65,7 @@ def answer_codeqa(
     
     print(f"\nQuestion: {question}")
     print(f"Code:\n{code}")
-    print(f"\nAnswer: {result['answer']}")
+    print(f"\nAnswer: {result['generated_answer']}")
     print(f"\nReasoning:\n{result['reasoning']}")
     
 
@@ -95,7 +102,7 @@ def interactive_answer_codeqa():
         return
     
     print(f"\nProcessing {len(questions)} questions...")
-    results = processor.process_qa(selected_code=code, questions=questions)
+    results = processor.process_multiple_qa(code, questions)
     
     print(f"\nResults:")
     for i, result in enumerate(results, 1):

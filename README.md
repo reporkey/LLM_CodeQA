@@ -1,8 +1,45 @@
-# Locodata – Intelligent Training Data Generator for Local Codebases
+# Locodata – AI-Powered Code Intelligence & Training Data Generator
 
-Locodata automates the creation of **Q&A pairs** and **design‑plan traces** from a local Git repository so that you can fine‑tune models like Qwen‑7B or GPT‑J for internal knowledge.
+**Transform your codebase into intelligent training data for custom AI models**
 
-## Quick Start
+Locodata is a sophisticated code analysis and training data generation platform that automatically extracts knowledge from your codebase to create high-quality Q&A pairs and design proposals. Built for developers who want to fine-tune AI models on their internal code knowledge.
+
+## 🚀 Key Features
+
+### **Smart Code Analysis**
+- **Intelligent Chunking**: Advanced code segmentation that respects function boundaries, class structures, and logical blocks
+- **Multi-language Support**: Python, JavaScript, TypeScript, Java, C++, Go, Rust, and 20+ programming languages
+- **Architecture Detection**: Automatic identification of frameworks, databases, and technology stacks
+- **Project Structure Analysis**: Complete directory tree mapping with file categorization
+
+### **AI-Powered Content Generation**
+- **Q&A Pair Generation**: Create contextual questions and answers from your codebase
+- **Design Proposals**: Generate detailed architectural designs with reasoning traces
+- **Interactive Mode**: Real-time code analysis and question answering
+- **CodeQA Dataset Support**: Process standard code comprehension datasets for testing
+
+## 🛠️ Technical Architecture
+
+### **Core Components**
+- **Design Processor**: Generates architectural proposals with comprehensive repository analysis
+- **CodeQA Processor**: Handles Q&A generation for local repositories
+- **Smart Chunking Engine**: Multi-strategy code segmentation (function-based, statement-based, line-based)
+- **LLM Integration**: Unified interface for multiple AI providers
+
+### **Advanced Features**
+- **Repository Overview**: Comprehensive analysis including file statistics, technology stack, and project structure
+- **Context-Aware Processing**: Maintains code context across chunks for better AI understanding
+- **Error Handling**: Robust processing with graceful fallbacks for malformed code
+- **Performance Optimized**: Efficient algorithms for large codebases
+
+## 📊 Output Formats
+
+### **Artifacts Generated**
+- `design.json` - Detailed architectural designs with reasoning
+- `local_repo_qa_results.json` - Q&A pairs from your codebase
+- `codeqa_{language}_{split}_results.json` - Processed CodeQA dataset results
+
+## 🔧 Quick Start
 
 ### Installation
 
@@ -11,45 +48,48 @@ Locodata automates the creation of **Q&A pairs** and **design‑plan traces** fr
 mamba env create -f environment.yml
 conda activate hsbc
 
-# 2. Point REPO_PATH to your repo to analyze (optional, defaults to ./)
+# 2. Configure your repository path
 export REPO_PATH=/path/to/your/codebase
 
-# 3. Set up your API key (OpenAI or Qwen)
+# 3. Set up your AI provider
 export API_KEY=your_api_key_here
+export LLM_PROVIDER=qwen  # or openai
+export MODEL_NAME=qwen-turbo
 
-# 4. Set language
-export SYSTEM_LANG=cn
+# 4. Set language preference
+export SYSTEM_LANG=en  # or cn
 ```
 
 ### Basic Usage
 
 ```bash
-# Scan repository and report stats
+# Analyze your repository structure
 python -m locodata scan
 
-# Generate a design proposal
+# Generate architectural design for a new feature
 python -m locodata design "Add async support with retries"
 
-# Generate QA pairs from your codebase
-python -m locodata generate_qa --limit 10
+# Create Q&A pairs from your codebase
+python -m locodata generate-qa --limit 10
 
-# Generate answers for CodeQA dataset
-python -m locodata answer_codeqa_dataset --limit 10
+# Process CodeQA dataset
+python -m locodata answer-codeqa-dataset --path CodeQA_data/python/train --limit 10
 
-# Generate answer for a single code-question pair
-python -m locodata answer_codeqa "def hello(): return 'world'" "What does this function return?"
+# Generate answer for a code-question pair
+python -m locodata answer-codeqa "def hello(): return 'world'" "What does this function return?"
 
-# Iterative mode for code-question pair answering
-python -m locodata interactive_answer_codeqa
+# Interactive code analysis
+python -m locodata interactive-answer-codeqa
 ```
 
-Artifacts land in `./artifacts/`:
+## 🔗 Integration & Extensibility
 
-* **qa.jsonl** – ready for supervised fine‑tuning (JSONL with columns `id,question,answer,code,reasoning,file_path,start_line,end_line`)
-* **design.json** – detailed design with reasoning trace
-* **codeqa_*_results.json** – CodeQA dataset results with generated answers and reasoning
+### **Supported AI Providers**
+- **OpenAI**: GPT-4, GPT-3.5, and other OpenAI models
+- **Alibaba Qwen**: Qwen-Turbo, Qwen-Plus, and other Qwen models
+- **Extensible**: Easy to add new providers
 
-## Getting API Keys
+## 🔑 Getting API Keys
 
 ### OpenAI Setup
 1. **Get API Key**: Visit https://platform.openai.com/api-keys
@@ -72,27 +112,22 @@ export MODEL_NAME=qwen-turbo
 export API_KEY=your_qwen_api_key
 ```
 
-## Environment Variables
+## ⚙️ Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `LLM_PROVIDER` | LLM provider to use (`openai` or `qwen`) | `qwen` |
-| `LLM_MODEL` | OpenAI model name | `qwen-turbo` |
-| `API_KEY` | API key | ` ` |
+| `LLM_MODEL` | Model name for the selected provider | `qwen-turbo` |
+| `API_KEY` | API key for the selected provider | ` ` |
 | `TEMPERATURE` | Temperature for generation | `0.2` |
 | `MAX_TOKENS` | Maximum tokens for generation | `4096` |
-| `LOCODATA_REPO` | Path to repository to analyze | `./` |
-| `LOCODATA_PROJECT_ROOT` | Project root directory | Current working directory |
-| `SYSTEM_LANG` | System language  | `cn` |
+| `REPO_PATH` | Path to repository to analyze | `./` |
+| `PROJECT_ROOT` | Project root directory | Current working directory |
+| `SYSTEM_LANG` | System language (`en` or `cn`) | `cn` |
 
-## Testing and Examples
+## 📚 CodeQA Dataset Support
 
-- **CLI Commands**: Use `python -m locodata --help` for available commands
-
-
-## CodeQA Dataset Support
-
-The project now supports processing the CodeQA dataset for generating answers given code and questions:
+Locodata supports processing the CodeQA dataset for generating answers given code and questions:
 
 ### CodeQA Dataset Structure
 ```
@@ -110,6 +145,12 @@ CodeQA_data/
     └── test/
 ```
 
-https://github.com/jadecxliu/CodeQA?tab=readme-ov-file
+**Reference**: Liu, Chenxiao, and Xiaojun Wan. **CodeQA: A Question Answering Dataset for Source Code Comprehension.** In *Findings of the Association for Computational Linguistics: EMNLP 2021*, pages 2618–2632, 2021.
 
-- Liu, Chenxiao, and Xiaojun Wan. **CodeQA: A Question Answering Dataset for Source Code Comprehension.** In *Findings of the Association for Computational Linguistics: EMNLP 2021*, pages 2618–2632, 2021.
+**Dataset**: https://github.com/jadecxliu/CodeQA
+
+## 🧪 Testing and Examples
+
+- **CLI Commands**: Use `python -m locodata --help` for available commands
+- **Interactive Mode**: Try `python -m locodata interactive-answer-codeqa` for real-time analysis
+- **Batch Processing**: Use `python -m locodata generate-qa --limit 100` for large-scale generate Q&A

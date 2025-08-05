@@ -1,0 +1,112 @@
+[
+  {
+    "code": "\"\"\"Central configuration and constants.\"\"\"\nfrom pathlib import Path\nimport os\n\n# Base paths -----------------------------------------------------\nPROJECT_ROOT: Path = Path(os.getenv(\"LOCODATA_PROJECT_ROOT\", Path.cwd()))\nREPO_PATH: Path = PROJECT_ROOT / os.getenv(\"REPO_PATH\", \"locodata\")\nARTIFACTS_DIR: Path = PROJECT_ROOT / \"artifacts\"\nARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)\n\n# Model + provider params ---------------------------------------\nLLM_PROVIDER: str = os.getenv(\"LLM_PROVIDER\", \"qwen\")\nMODEL_NAME: str = os.getenv(\"LLM_MODEL\", \"qwen-turbo\")\nMAX_TOKENS: int = int(os.getenv(\"LLM_MAX_TOKENS\", 4096))\nTEMPERATURE: float = float(os.getenv(\"LLM_TEMP\", 0.2))\n    \n# System language -----------------------------------------------\nSYSTEM_LANG: str = os.getenv(\"SYSTEM_LANG\", \"cn\")\n\n# API Key ------------------------------------------------------\nAPI_KEY: str = os.getenv(\"API_KEY\", \"\")\n\n# System prompts ------------------------------------------------\nSYSTEM_ANSWER_PROMPT_EN = (\n    \"You are an expert software developer. Given a code snippet and a question about it, \"\n    \"provide (1) a concise ANSWER and (2) step-by-step REASONING explaining your answer. \"\n    \"Format strictly as JSON with keys: answer, reasoning.\"\n)\n\nSYSTEM_ANSWER_PROMPT_CN = (\n    \"你是一个资深软件开发者。给定一段代码片段和关于它的一个问题，\"\n    \"请提供（1）简洁明了的回答；（2）逐步的推理过程来解释你的答案。\"\n    \"请严格按照 JSON 格式输出，包含键名：answer、reasoning。\"\n)\n\nSYSTEM_GENERATE_PROMPT_EN = (\n    \"You are an expert software architect. Given a code snippet and its file path, \"\n    \"produce (1) a QUESTION a developer might ask and (2) a concise ANSWER. \"\n    \"Then output a step-by-step reasoning trace. Format strictly as JSON with \"\n    \"keys: question, answer, reasoning.\"\n)\n\nSYSTEM_GENERATE_PROMPT_CN = (\n    \"你是一个资深软件架构师。给定一段代码片段及其文件路径，\"\n    \"请生成（1）开发者可能会提出的一个问题；（2）简洁明了的回答。\"\n    \"然后输出逐步的推理过程。\"\n    \"请严格按照 JSON 格式输出，包含键名：question、answer、reasoning。\"\n)\n\nSYSTEM_DESIGN_PROMPT_EN = (",
+    "file_path": "/Users/reporkey/Desktop/hsbc_interview/locodata/config.py",
+    "file_lang": "python",
+    "start_line": 1,
+    "end_line": 50,
+    "mode": "local_repo",
+    "generated_answer": "使用 os.getenv 可以提高配置的灵活性和可维护性，允许在不同环境中通过环境变量动态调整配置，而无需修改代码。",
+    "generated_question": "为什么在配置文件中使用 os.getenv 而不是直接硬编码环境变量值？",
+    "reasoning": "1. os.getenv 允许从外部环境获取配置值，而不是将它们硬编码到代码中。这使得配置可以在不同运行环境中（如开发、测试、生产）灵活调整。\n2. 这种方式提高了代码的可维护性，因为不需要更改代码即可适应不同的部署需求。\n3. 如果直接硬编码环境变量值，每次环境变化都需要修改代码，增加了出错的风险和维护成本。"
+  },
+  {
+    "code": "    \"你是一个资深软件架构师。给定一段代码片段及其文件路径，\"\n    \"请生成（1）开发者可能会提出的一个问题；（2）简洁明了的回答。\"\n    \"然后输出逐步的推理过程。\"\n    \"请严格按照 JSON 格式输出，包含键名：question、answer、reasoning。\"\n)\n\nSYSTEM_DESIGN_PROMPT_EN = (\n    \"You are a senior backend engineer. Given a natural‑language REQUIREMENT and a \"\n    \"brief description of the target repository's architecture, output a JSON with \"\n    \"keys: design (detailed design proposal), reasoning (step‑by‑step chain of \"\n    \"thought).\"\n)\n\nSYSTEM_DESIGN_PROMPT_CN = (\n    \"你是一名资深后端工程师。给定一个自然语言需求和目标仓库架构的简要描述，\"\n    \"请输出一个 JSON，包含键名：design（详细设计方案）、reasoning（逐步推理过程）。\"\n)\n\n\nif SYSTEM_LANG == \"cn\":\n    SYSTEM_GENERATE_PROMPT = SYSTEM_GENERATE_PROMPT_CN\n    SYSTEM_ANSWER_PROMPT = SYSTEM_ANSWER_PROMPT_CN\n    SYSTEM_DESIGN_PROMPT = SYSTEM_DESIGN_PROMPT_CN\nelse:\n    SYSTEM_GENERATE_PROMPT = SYSTEM_GENERATE_PROMPT_EN\n    SYSTEM_ANSWER_PROMPT = SYSTEM_ANSWER_PROMPT_EN\n    SYSTEM_DESIGN_PROMPT = SYSTEM_DESIGN_PROMPT_EN\n    ",
+    "file_path": "/Users/reporkey/Desktop/hsbc_interview/locodata/config.py",
+    "file_lang": "python",
+    "start_line": 1801,
+    "end_line": 1828,
+    "mode": "local_repo",
+    "generated_answer": "这段代码是根据系统语言设置（'cn' 或 'en'）来选择使用中文或英文的系统提示语，用于后续的自然语言处理任务。",
+    "generated_question": "这段代码的作用是什么？",
+    "reasoning": "1. 代码中定义了多个以 SYSTEM_ 开头的字符串变量，这些变量包含不同语言的提示语。2. 根据变量 SYSTEM_LANG 的值（'cn' 或 'en'），代码将相应的提示语赋值给 SYSTEM_GENERATE_PROMPT、SYSTEM_ANSWER_PROMPT 和 SYSTEM_DESIGN_PROMPT。3. 这些变量在后续的程序逻辑中可能被用来决定使用哪种语言的提示语进行交互或生成内容。4. 因此，这段代码的主要作用是根据系统语言配置动态选择合适的提示语。"
+  },
+  {
+    "code": "\"\"\"Top‑level package for locodata.\"\"\"\n\nfrom importlib.metadata import version, PackageNotFoundError\n\ntry:\n    __version__ = version(\"locodata\")\nexcept PackageNotFoundError:  # pragma: no cover\n    __version__ = \"0.0.0.dev0\"\n\n# Expose key helpers at package root\nfrom .cli import app as cli_app  # noqa: E402\n",
+    "file_path": "/Users/reporkey/Desktop/hsbc_interview/locodata/__init__.py",
+    "file_lang": "python",
+    "start_line": 1,
+    "end_line": 11,
+    "mode": "local_repo",
+    "generated_answer": "使用 importlib.metadata.version 可以从已安装的包中动态获取版本号，确保版本信息与实际安装的版本一致，而不是硬编码在代码中。",
+    "generated_question": "为什么在 locodata 包的 __init__.py 文件中使用 importlib.metadata.version 来获取版本号？",
+    "reasoning": "在 Python 中，通常可以通过 importlib.metadata 获取已安装包的元数据，包括版本号。这种方式比手动维护版本号更可靠，特别是在开发和部署过程中，可以避免因版本号不一致导致的问题。此外，如果找不到包（如未安装），会捕获 PackageNotFoundError 并设置默认版本号 '0.0.0.dev0'，这有助于在开发环境中提供一个合理的默认值。"
+  },
+  {
+    "code": "\"\"\"LLM‑powered Q&A generation for code chunks.\"\"\"\nfrom __future__ import annotations\n\nfrom .config import MODEL_NAME, TEMPERATURE, API_KEY, LLM_PROVIDER\n\ntry:\n    import openai  # noqa: I900\n    openai.api_key = API_KEY\n    openai.base_url = None\n    if LLM_PROVIDER == \"qwen\":\n        openai.base_url = \"https://dashscope-intl.aliyuncs.com/compatible-mode/v1/\"\n    elif LLM_PROVIDER == \"openai\":\n        openai.base_url = \"https://api.openai.com/v1\"\n    \nexcept ImportError:  # pragma: no cover\n    openai = None\n\n\ndef llm_completion(prompt: str, system_prompt: str) -> str:\n    \"\"\"Call the configured LLM provider and return raw text.\"\"\"\n    if openai is None:\n        raise RuntimeError(\"openai package not installed. Run `pip install openai`.\")\n    response = openai.chat.completions.create(\n        model=MODEL_NAME,\n        messages=[{\"role\": \"system\", \"content\": system_prompt},\n                  {\"role\": \"user\", \"content\": prompt}],\n        temperature=TEMPERATURE,\n        max_tokens=1024,\n    )\n    return response.choices[0].message.content.strip()\n",
+    "file_path": "/Users/reporkey/Desktop/hsbc_interview/locodata/llm.py",
+    "file_lang": "python",
+    "start_line": 1,
+    "end_line": 30,
+    "mode": "local_repo",
+    "generated_answer": "通过配置文件定义LLM提供商（如'qwen'或'openai'），并在代码中根据配置动态设置API基础URL，可以实现不同LLM提供商之间的切换。同时，使用try-except块处理依赖项导入问题，确保在缺少依赖时能给出明确提示。",
+    "generated_question": "如何确保在不同LLM提供商之间切换时，代码的兼容性和稳定性？",
+    "reasoning": "代码通过读取配置文件中的LLM_PROVIDER变量来决定使用哪个提供商，并根据该变量设置对应的base_url。这使得代码能够灵活地支持不同的LLM提供商。此外，代码使用try-except块来处理openai库的导入问题，如果未安装openai，则抛出明确的错误信息，从而保证了代码的稳定性和可维护性。"
+  },
+  {
+    "code": "@app.command()\ndef scan():\n    \"\"\"Index repository and report basic stats.\"\"\"\n    builder = DesignProcessor(REPO_PATH)\n    files = list(builder.iter_code_chunks())\n    print(f'Files: {len(list(utils.walk_code_files(REPO_PATH)))} | Chunks: {len(files)}')\n\n@app.command()\ndef design(requirement: str=typer.Argument(..., help='Requirement in natural language')):\n    \"\"\"Generate a design proposal (design.json).\"\"\"\n    d = DesignProcessor(REPO_PATH).build_design(requirement)\n    print('design.json written under artifacts/.\\n', d)\n\n@app.command()\ndef answer_codeqa_dataset(path: Path=typer.Option(Path('CodeQA_data/python/train'), help='Path to CodeQA dataset'), limit: int=typer.Option(None, help='Limit number of examples to process')):\n    \"\"\"Generate answers for CodeQA dataset (existing code + question pairs).\"\"\"\n    if not path.exists():\n        print(f'CodeQA data not found at {path}')\n        print('Please ensure CodeQA_data directory exists with the correct structure')\n        return\n    processor = CodeQADatasetProcessor(path)\n    results = processor.process_qa(limit)\n    print(f'Processed {len(results)} examples from {path}')\n\n@app.command()\ndef generate_qa(limit: int=typer.Option(None, help='Limit number of code chunks to process')):\n    \"\"\"Generate both questions and answers for local repository code chunks.\"\"\"\n    processor = LocalRepoQAProcessor(REPO_PATH)\n    results = processor.process_qa(limit)\n    print(f'Processed {len(results)} code chunks from {REPO_PATH}')\n\n@app.command()\ndef answer_codeqa(code: str=typer.Argument(..., help='Code snippet'), question: str=typer.Argument(..., help='Question about the code')):\n    \"\"\"Generate answer and reasoning for a single code-question pair.\"\"\"\n    processor = BaseQAProcessor()\n    result = processor.process_qa(code, question)\n    print(f'\\nQuestion: {question}')\n    print(f'Code:\\n{code}')\n    print(f\"\\nAnswer: {result['generated_answer']}\")\n    print(f\"\\nReasoning:\\n{result['reasoning']}\")",
+    "file_path": "/Users/reporkey/Desktop/hsbc_interview/locodata/cli.py",
+    "file_lang": "python",
+    "start_line": 1,
+    "end_line": 40,
+    "mode": "local_repo",
+    "generated_answer": "The 'scan' command indexes a repository and reports basic statistics, such as the number of files and code chunks.",
+    "generated_question": "What is the purpose of the 'scan' command in the provided code?",
+    "reasoning": "The 'scan' function is defined with the @app.command() decorator, indicating it's a CLI command. Inside the function, it initializes a DesignProcessor with REPO_PATH, iterates over code chunks, and prints the total number of files and chunks found in the repository."
+  },
+  {
+    "code": "essor.process_qa(code, question)\n    print(f'\\nQuestion: {question}')\n    print(f'Code:\\n{code}')\n    print(f\"\\nAnswer: {result['generated_answer']}\")\n    print(f\"\\nReasoning:\\n{result['reasoning']}\")\n\n@app.command()\ndef interactive_answer_codeqa():\n    \"\"\"Interactive mode for providing code and asking questions.\"\"\"\n    processor = BaseQAProcessor()\n    print('=== Interactive Code QA Mode ===')\n    print('Enter your code (press Enter twice to finish):')\n    code_lines = []\n    while True:\n        line = input()\n        if line == '' and code_lines and (code_lines[-1] == ''):\n            break\n        code_lines.append(line)\n    code = '\\n'.join(code_lines[:-1])\n    print(f'\\nCode entered:\\n{code}')\n    questions = []\n    print('\\nEnter your questions (one per line, press Enter twice to finish):')\n    while True:\n        question = input('Question: ')\n        if question == '':\n            break\n        questions.append(question)\n    if not questions:\n        print('No questions provided. Exiting.')\n        return\n    print(f'\\nProcessing {len(questions)} questions...')\n    results = processor.process_multiple_qa(code, questions)\n    print(f'\\nResults:')\n    for i, result in enumerate(results, 1):\n        print(f\"\\n--- Question {i}: {result['question']} ---\")\n        print(f\"Answer: {result['generated_answer']}\")\n        print(f\"Reasoning: {result['reasoning']}\")",
+    "file_path": "/Users/reporkey/Desktop/hsbc_interview/locodata/cli.py",
+    "file_lang": "python",
+    "start_line": 1801,
+    "end_line": 1837,
+    "mode": "local_repo",
+    "generated_answer": "因为代码输入部分需要处理空行作为结束标志。当用户输入一个空行时，如果前一行也是空行，则认为输入结束。",
+    "generated_question": "为什么在interactive_answer_codeqa函数中，代码输入部分使用了两次Enter来结束输入？",
+    "reasoning": "在代码中，code_lines列表用于存储用户输入的代码行。循环读取输入行，当遇到一个空行且前一行也是空行时，就认为用户完成了代码输入。这是为了防止用户误输入空行而提前结束输入。"
+  },
+  {
+    "code": "def detect_file_language(file_path: Path) -> str:\n    \"\"\"Detect programming language based on file extension.\"\"\"\n    extension = file_path.suffix.lower()\n    language_map = {'.py': 'python', '.js': 'javascript', '.ts': 'typescript', '.jsx': 'javascript', '.tsx': 'typescript', '.java': 'java', '.cpp': 'cpp', '.c': 'c', '.cs': 'csharp', '.php': 'php', '.rb': 'ruby', '.go': 'go', '.rs': 'rust', '.swift': 'swift', '.kt': 'kotlin', '.scala': 'scala', '.r': 'r', '.m': 'matlab', '.sh': 'bash', '.sql': 'sql', '.html': 'html', '.css': 'css', '.scss': 'scss', '.sass': 'sass', '.xml': 'xml', '.json': 'json', '.yaml': 'yaml', '.yml': 'yaml', '.toml': 'toml', '.ini': 'ini', '.cfg': 'ini', '.conf': 'ini', '.md': 'markdown', '.txt': 'text'}\n    return language_map.get(extension, 'unknown')\n\ndef walk_code_files(root: Path=REPO_PATH) -> Iterable[Path]:\n    \"\"\"Yield all code files under *root* based on common programming language extensions.\"\"\"\n    code_extensions = {'.py', '.js', '.ts', '.jsx', '.tsx', '.java', '.cpp', '.c', '.cs', '.php', '.rb', '.go', '.rs', '.swift', '.kt', '.scala', '.r', '.m', '.sh', '.sql', '.html', '.css', '.scss', '.sass', '.xml', '.json', '.yaml', '.yml', '.toml', '.ini', '.cfg', '.conf', '.md', '.txt'}\n    for p in root.rglob('*'):\n        if p.is_file() and p.suffix.lower() in code_extensions:\n            yield p",
+    "file_path": "/Users/reporkey/Desktop/hsbc_interview/locodata/utils.py",
+    "file_lang": "python",
+    "start_line": 1,
+    "end_line": 12,
+    "mode": "local_repo",
+    "generated_answer": "The 'detect_file_language' function returns 'unknown' when a file's extension is not present in the 'language_map' dictionary. This can happen if the file has an extension that is not explicitly listed in the map.",
+    "generated_question": "Why is the 'detect_file_language' function returning 'unknown' for some file extensions?",
+    "reasoning": "The function uses a dictionary called 'language_map' to map file extensions to their corresponding programming languages. If a file's extension is not found in this dictionary, the 'get' method returns the default value 'unknown'. Therefore, any file with an extension not included in the 'language_map' will be classified as 'unknown'."
+  },
+  {
+    "code": "s', '.xml', '.json', '.yaml', '.yml', '.toml', '.ini', '.cfg', '.conf', '.md', '.txt'}\n    for p in root.rglob('*'):\n        if p.is_file() and p.suffix.lower() in code_extensions:\n            yield p\n\ndef chunk_code(code: str, chunk_size: int=CHUNK_SIZE, overlap: int=OVERLAP) -> List[str]:\n    \"\"\"Smart code chunking that respects code structure and creates meaningful chunks.\"\"\"\n    if len(code) <= chunk_size:\n        return [code]\n    if 'def ' in code or 'class ' in code:\n        chunks = _chunk_by_functions(code, chunk_size, overlap)\n        if chunks and all((len(chunk) <= chunk_size for chunk in chunks)):\n            return chunks\n    chunks = _chunk_by_statements(code, chunk_size, overlap)\n    if chunks and all((len(chunk) <= chunk_size for chunk in chunks)):\n        return chunks\n    chunks = _chunk_by_lines(code, chunk_size, overlap)\n    if chunks and all((len(chunk) <= chunk_size for chunk in chunks)):\n        return chunks\n    return _naive_chunk(code, chunk_size, overlap)",
+    "file_path": "/Users/reporkey/Desktop/hsbc_interview/locodata/utils.py",
+    "file_lang": "python",
+    "start_line": 1801,
+    "end_line": 1820,
+    "mode": "local_repo",
+    "generated_answer": "这段代码通过检查文件扩展名来识别不同类型的代码文件，并使用特定的分块方法（如按函数、语句或行）进行智能分块。",
+    "generated_question": "这段代码中如何处理不同类型的代码文件？",
+    "reasoning": "在代码片段中，`code_extensions` 定义了各种代码文件的扩展名。`root.rglob('*')` 遍历目录中的所有文件，`p.suffix.lower() in code_extensions` 判断文件是否为代码文件。随后，`chunk_code` 函数根据代码内容的结构（如 `def ` 或 `class `）选择不同的分块策略，例如按函数、语句或行进行分块，以确保生成有意义的代码块。"
+  },
+  {
+    "code": "chunks = _chunk_by_lines(code, chunk_size, overlap)\n    if chunks and all((len(chunk) <= chunk_size for chunk in chunks)):\n        return chunks\n    return _naive_chunk(code, chunk_size, overlap)\n\ndef _chunk_by_functions(code: str, chunk_size: int, overlap: int) -> List[str]:\n    \"\"\"Chunk code by complete functions and classes.\"\"\"\n    try:\n        tree = ast.parse(code)\n        chunks = []\n        current_chunk = ''\n        code_units = []\n        for node in ast.walk(tree):\n            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):\n                unit_code = ast.unparse(node)\n                if len(unit_code) > chunk_size:\n                    return []\n                code_units.append(unit_code)\n        if not code_units:\n            return []\n        for unit in code_units:\n            if len(current_chunk) + len(unit) > chunk_size and current_chunk:\n                chunks.append(current_chunk.strip())\n                if overlap > 0:\n                    overlap_text = current_chunk[-overlap:] if len(current_chunk) > overlap else current_chunk\n                    current_chunk = overlap_text + '\\n\\n' + unit\n                else:\n                    current_chunk = unit\n            else:\n                current_chunk += '\\n\\n' + unit if current_chunk else unit\n        if current_chunk.strip():\n            chunks.append(current_chunk.strip())\n        return chunks if chunks else []\n    except SyntaxError:\n        return []",
+    "file_path": "/Users/reporkey/Desktop/hsbc_interview/locodata/utils.py",
+    "file_lang": "python",
+    "start_line": 3601,
+    "end_line": 3635,
+    "mode": "local_repo",
+    "generated_answer": "这是为了确保生成的 chunks 满足指定的大小限制。如果所有 chunk 都符合要求，则直接返回；否则使用更简单的 _naive_chunk 方法重新分割代码。",
+    "generated_question": "为什么在 _chunk_by_lines 函数中，如果 chunks 不为空且所有 chunk 的长度都小于等于 chunk_size，则返回 chunks，否则返回 _naive_chunk 的结果？",
+    "reasoning": "在 _chunk_by_lines 函数中，首先尝试通过某种方式将代码分割成 chunks。如果分割后的 chunks 不为空，并且每个 chunk 的长度都不超过 chunk_size，则说明分割成功，可以直接返回这些 chunks。如果分割失败（例如某些 chunk 超过了 chunk_size），则使用 _naive_chunk 方法进行更简单的分割，以确保最终结果满足大小限制的要求。"
+  },
+  {
+    "code": "' + unit if current_chunk else unit\n        if current_chunk.strip():\n            chunks.append(current_chunk.strip())\n        return chunks if chunks else []\n    except SyntaxError:\n        return []\n\ndef _chunk_by_statements(code: str, chunk_size: int, overlap: int) -> List[str]:\n    \"\"\"Chunk code by complete statements, respecting indentation and logical blocks.\"\"\"\n    lines = code.split('\\n')\n    chunks = []\n    current_chunk = []\n    current_size = 0\n    for line in lines:\n        line_size = len(line) + 1\n        if current_size + line_size > chunk_size and current_chunk:\n            chunk_text = '\\n'.join(current_chunk)\n            chunks.append(chunk_text)\n            if overlap > 0:\n                overlap_lines = []\n                overlap_size = 0\n                for overlap_line in reversed(current_chunk):\n                    if overlap_size + len(overlap_line) + 1 <= overlap:\n                        overlap_lines.insert(0, overlap_line)\n                        overlap_size += len(overlap_line) + 1\n                    else:\n                        break\n                current_chunk = overlap_lines\n                current_size = overlap_size\n            else:\n                current_chunk = []\n                current_size = 0\n        current_chunk.append(line)\n        current_size += line_size\n    if current_chunk:\n        chunk_text = '\\n'.join(current_chunk)\n        chunks.append(chunk_text)\n    return chunks",
+    "file_path": "/Users/reporkey/Desktop/hsbc_interview/locodata/utils.py",
+    "file_lang": "python",
+    "start_line": 5401,
+    "end_line": 5438,
+    "mode": "local_repo",
+    "generated_answer": "该函数通过从当前代码块的末尾向前遍历，将不超过指定重叠大小的行添加到重叠部分中，从而保留逻辑块的完整性。",
+    "generated_question": "在函数 '_chunk_by_statements' 中，如何处理代码块的重叠部分以确保逻辑块的完整性？",
+    "reasoning": "在函数 '_chunk_by_statements' 中，当当前代码块的大小超过 chunk_size 时，会检查是否启用了重叠。如果启用了重叠，则从当前代码块的末尾开始向前遍历，将不超过指定重叠大小的行提取出来作为重叠部分，并将其设置为新的 current_chunk。这样可以确保在分割代码块时保留逻辑块的完整性，避免因截断导致语法错误或逻辑不完整。"
+  }
+]

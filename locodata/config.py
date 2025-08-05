@@ -3,7 +3,7 @@ from pathlib import Path
 import os
 
 # Base paths -----------------------------------------------------
-PROJECT_ROOT: Path = Path(os.getenv("LOCODATA_PROJECT_ROOT", Path.cwd()))
+PROJECT_ROOT: Path = Path(os.getenv("PROJECT_ROOT", Path.cwd()))
 REPO_PATH: Path = PROJECT_ROOT / os.getenv("REPO_PATH", "locodata")
 ARTIFACTS_DIR: Path = PROJECT_ROOT / "artifacts"
 ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)

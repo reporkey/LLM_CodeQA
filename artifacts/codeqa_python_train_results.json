@@ -1,0 +1,112 @@
+[
+  {
+    "line_num": 1,
+    "code": "def Make Suite From Dict d label None suite Suite label label suite Set Dict d suite Normalize return suite",
+    "question": "What does the code make ?",
+    "ground_truth_answer": "a suite",
+    "split": "train",
+    "language": "python",
+    "mode": "codeqa_data",
+    "generated_answer": "The code is not valid Python syntax and does not make anything meaningful.",
+    "reasoning": "The provided code snippet is not valid Python. It appears to be a mix of words and symbols that do not form a correct Python function or statement. For example, 'Make Suite From Dict d label None suite Suite label label suite Set Dict d suite Normalize return suite' is not a syntactically correct Python function definition. Therefore, it does not produce any meaningful output or structure."
+  },
+  {
+    "line_num": 2,
+    "code": "def Make Suite From Dict d label None suite Suite label label suite Set Dict d suite Normalize return suite",
+    "question": "Does the code make a suite ?",
+    "ground_truth_answer": "Yes",
+    "split": "train",
+    "language": "python",
+    "mode": "codeqa_data",
+    "generated_answer": "No, the code does not make a suite.",
+    "reasoning": "The provided code is not valid Python syntax and appears to be a mix of pseudo-code or incorrect formatting. It lacks proper structure, such as correct function definitions, variable assignments, and method calls. Without proper syntax and logical flow, it cannot be determined that the code makes a suite."
+  },
+  {
+    "line_num": 3,
+    "code": "def receive message topic name subscription name pubsub client pubsub Client topic pubsub client topic topic name subscription topic subscription subscription name results subscription pull return immediately True print ' Received{}messages ' format len results for ack id message in results print '*{} {} {}' format message message id message data message attributes if results subscription acknowledge [ack id for ack id message in results]",
+    "question": "Does the code receive a message from a pull subscription ?",
+    "ground_truth_answer": "Yes",
+    "split": "train",
+    "language": "python",
+    "mode": "codeqa_data",
+    "generated_answer": "No, the code does not properly receive a message from a pull subscription.",
+    "reasoning": "The provided code is incomplete and contains syntax errors. It appears to be an attempt to implement a function for receiving messages from a pub/sub system, but it lacks proper structure and functionality. The code snippet is not valid Python and does not clearly demonstrate how messages are pulled from a subscription. Additionally, the logic for acknowledging messages and handling results is not fully defined or correctly implemented."
+  },
+  {
+    "line_num": 4,
+    "code": "def receive message topic name subscription name pubsub client pubsub Client topic pubsub client topic topic name subscription topic subscription subscription name results subscription pull return immediately True print ' Received{}messages ' format len results for ack id message in results print '*{} {} {}' format message message id message data message attributes if results subscription acknowledge [ack id for ack id message in results]",
+    "question": "What does the code receive from a pull subscription ?",
+    "ground_truth_answer": "a message",
+    "split": "train",
+    "language": "python",
+    "mode": "codeqa_data",
+    "generated_answer": "The code receives messages from a pull subscription.",
+    "reasoning": "The code appears to be related to a message-pulling mechanism, likely from a pub/sub (publish/subscribe) system. The key elements are 'subscription', 'pull', and 'message'. The function seems to retrieve messages from a subscription, process them, and acknowledge them. The phrase 'subscription pull' indicates that the code is pulling messages from a subscription, which is a common pattern in pub/sub systems."
+  },
+  {
+    "line_num": 5,
+    "code": "def Create Shared Budget client budget service client Get Service ' Budget Service' version 'v 201609 ' budget {'name' ' Shared Interplanetary Budget#%s' % uuid uuid 4 'amount' {'micro Amount' '2000000 '} 'delivery Method' 'STANDARD' 'is Explicitly Shared' 'true'}operation {'operator' 'ADD' 'operand' budget}response budget service mutate [operation] return response['value'][ 0 ]",
+    "question": "What be an explicit budget used only ?",
+    "ground_truth_answer": "to create the campaign",
+    "split": "train",
+    "language": "python",
+    "mode": "codeqa_data",
+    "generated_answer": "An explicit budget is used only for specific, predefined purposes and is not shared with other entities.",
+    "reasoning": "The code snippet includes a parameter 'is Explicitly Shared' set to 'true', which implies that the budget is explicitly defined and not shared. This suggests that an explicit budget is reserved for particular uses and is not intended for general or shared access."
+  },
+  {
+    "line_num": 6,
+    "code": "def Create Shared Budget client budget service client Get Service ' Budget Service' version 'v 201609 ' budget {'name' ' Shared Interplanetary Budget#%s' % uuid uuid 4 'amount' {'micro Amount' '2000000 '} 'delivery Method' 'STANDARD' 'is Explicitly Shared' 'true'}operation {'operator' 'ADD' 'operand' budget}response budget service mutate [operation] return response['value'][ 0 ]",
+    "question": "Be an explicit budget used to create the campaign only ?",
+    "ground_truth_answer": "Yes",
+    "split": "train",
+    "language": "python",
+    "mode": "codeqa_data",
+    "generated_answer": "No, the explicit budget is not used to create the campaign only.",
+    "reasoning": "The provided code snippet appears to be a mix of Python and some custom syntax for creating a shared budget. The 'is Explicitly Shared' field is set to 'true', which indicates that the budget is explicitly shared. However, the code does not clearly specify whether this budget is used solely for creating a campaign or if it has other purposes as well. Without additional context or clarification, it is not possible to determine the exact usage of the explicit budget."
+  },
+  {
+    "line_num": 7,
+    "code": "def Create Shared Budget client budget service client Get Service ' Budget Service' version 'v 201609 ' budget {'name' ' Shared Interplanetary Budget#%s' % uuid uuid 4 'amount' {'micro Amount' '2000000 '} 'delivery Method' 'STANDARD' 'is Explicitly Shared' 'true'}operation {'operator' 'ADD' 'operand' budget}response budget service mutate [operation] return response['value'][ 0 ]",
+    "question": "What be used to create the campaign only ?",
+    "ground_truth_answer": "an explicit budget",
+    "split": "train",
+    "language": "python",
+    "mode": "codeqa_data",
+    "generated_answer": "The 'Create Shared Budget' operation is used to create the campaign only.",
+    "reasoning": "The code snippet includes a function called 'Create Shared Budget' which is followed by parameters such as 'budget' and 'operation'. The 'operation' parameter has an 'operator' set to 'ADD', indicating that this is the operation used to create a new budget. The 'response' section suggests that the result of this operation is used to return the created budget, which implies that the 'Create Shared Budget' operation is specifically used to create the campaign."
+  },
+  {
+    "line_num": 8,
+    "code": "def get Plugins Directory Path return archive get Absolute Frozen Folder Path file 'xml plugins'",
+    "question": "What does the code get ?",
+    "ground_truth_answer": "the plugins directory path",
+    "split": "train",
+    "language": "python",
+    "mode": "codeqa_data",
+    "generated_answer": "The code retrieves the absolute path to a directory named 'xml plugins' within a frozen folder, which is part of an archive.",
+    "reasoning": "The code appears to be a mix of Python syntax and pseudo-code. Breaking it down: 'get Plugins Directory Path' suggests a function or method that returns a directory path. 'return archive get Absolute Frozen Folder Path file 'xml plugins'' implies that the path is derived from an archive, specifically the absolute path of a 'frozen folder' (likely a bundled or packaged application), and then accesses a file or directory named 'xml plugins'. The overall purpose is to retrieve the absolute path to the 'xml plugins' directory within the frozen folder."
+  },
+  {
+    "line_num": 9,
+    "code": "def get Plugins Directory Path return archive get Absolute Frozen Folder Path file 'xml plugins'",
+    "question": "Does the code get the plugins directory path ?",
+    "ground_truth_answer": "Yes",
+    "split": "train",
+    "language": "python",
+    "mode": "codeqa_data",
+    "generated_answer": "No, the code does not get the plugins directory path.",
+    "reasoning": "The given code is not valid Python syntax. It appears to be a mix of different programming concepts and keywords without proper structure. The function definition is incomplete, and the method calls (like 'get Absolute Frozen Folder Path') are not standard Python methods. Therefore, it cannot reliably retrieve the plugins directory path."
+  },
+  {
+    "line_num": 10,
+    "code": "def ffmpeg write image filename image logfile False if image dtype 'uint 8 ' image image astype 'uint 8 ' cmd [get setting 'FFMPEG BINARY' '-y' '-s' '%dx%d' % image shape[ 2][ -1 ] '-f' 'rawvideo' '-pix fmt' 'rgba' if image shape[ 2 ] 4 else 'rgb 24 ' '-i' '-' filename]if logfile log file open filename + ' log' 'w+' else log file sp PIP Epopen params {'stdout' DEVNULL 'stderr' log file 'stdin' sp PIPE}if os name 'nt' popen params['creationflags'] 134217728 proc sp Popen cmd **popen params out err proc communicate image tostring if proc returncode err '\\n' join [ '[ Movie Py] Running %s\\n' % cmd 'WARNING thiscommandreturnedanerror ' err decode 'utf 8 ' ] raise IO Error err del proc",
+    "question": "What does the code write to a file ?",
+    "ground_truth_answer": "an image",
+    "split": "train",
+    "language": "python",
+    "mode": "codeqa_data",
+    "generated_answer": "The code writes an image to a file using the FFmpeg binary.",
+    "reasoning": "The code defines a function that uses FFmpeg to write an image to a file. It constructs a command line for FFmpeg, which includes parameters such as the image size, pixel format, and input source. The image is converted to 'uint8' data type if necessary, and the output is written to the specified filename. The code also handles logging and error checking."
+  }
+]
