@@ -1,0 +1,46 @@
+name: hsbc
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # —— 核心运行环境 ——
+  - python=3.11          # 与 Qwen 等最新 PEFT 代码兼容
+  - pip                  # 有些包仅在 PyPI
+  - git                  # 便于拉取/更新本地或远程仓
+
+  # —— 解析 / 分词 / AST ——
+  - tree_sitter           # 代码语法解析
+  - pygments              # 代码高亮及语言检测
+
+  # —— 数据处理 ——
+  - pandas
+  - numpy
+  - tqdm
+  - pyyaml
+
+  # —— 深度学习 / 微调 ——
+  - pytorch               # 会根据平台自动安装 CUDA / CPU 版本
+  - transformers
+  - peft
+  - accelerate
+  # - bitsandbytes          # QLoRA 量化
+  - sentencepiece         # tokenizer 所需
+  - datasets
+
+  # —— 交互 / CLI ——
+  - typer                 # CLI 框架
+  - rich                  # CLI 颜色日志
+  - uvicorn
+  - fastapi               # 如需本地 API 服务
+
+  # —— 其他工具 ——
+  - pre-commit            # 代码风格钩子（可选）
+  - black
+  - isort
+
+  # —— 通过 pip 安装的包 ——
+  - pip:
+      - openai            # OpenAI API 支持
+      - dashscope         # Qwen API 支持
+      - langchain         # 如果启用 RAG / chunker
+      - tree_sitter_languages
