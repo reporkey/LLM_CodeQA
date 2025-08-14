@@ -47,7 +47,3 @@ htmlcov/
 *.sublime-workspace
 *.sublime-project
 *.kate-swp
-
-# My stuff
-runs/
-data_sources/
